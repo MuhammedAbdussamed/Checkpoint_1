@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Ground
+  - Interacable_Object
   layers:
   - Default
   - TransparentFX
@@ -11,9 +13,9 @@ TagManager:
   - 
   - Water
   - UI
+  - Ground
   - 
-  - 
-  - 
+  - Effects
   - 
   - 
   - 
@@ -43,6 +45,9 @@ TagManager:
     locked: 0
   - name: Characters
     uniqueID: 3793137695
+    locked: 0
+  - name: Effects
+    uniqueID: 815379927
     locked: 0
   m_RenderingLayers:
   - Default
