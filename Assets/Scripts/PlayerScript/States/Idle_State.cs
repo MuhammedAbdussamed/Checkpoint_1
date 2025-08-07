@@ -2,25 +2,29 @@ using UnityEngine;
 
 public class Idle_State : IState
 {
-    public void Enter(PlayerProperties player)
+    public void Enter(PlayerProperties _playerData)
     {
         Debug.Log("IdleState'e girildi ");
     }
 
-    public void Exit(PlayerProperties player)
+    public void Exit(PlayerProperties _playerData)
     {
         Debug.Log("IdleState'den çikildi");
     }
 
-    public void Update(PlayerProperties player)
+    public void Update(PlayerProperties _playerData)
     {
-        if (player._isWalking)    // Karakter yürüyorsa ve yerdeyse...
+        if (_playerData._isWalking)      // Karakter yürüyorsa ve yerdeyse...
         {
-            player.ChangeState(player._walkState);    // O zaman Walk_State'e geç.
+            _playerData.ChangeState(_playerData._walkState);    // O zaman yürüme durumuna geç.
         }
-        else if (player._isJumping) // Karakter zıplıyor ise...
+        else if (_playerData._isJumping) // Karakter zıplıyor ise...
         {
-            player.ChangeState(player._jumpState);   // O zaman zıplama durumuna geç.
+            _playerData.ChangeState(_playerData._jumpState);   // O zaman zıplama durumuna geç.
+        }
+        else if (_playerData._isDashing) // Karakter atılıyor ise
+        {
+            _playerData.ChangeState(_playerData._dashState);    // O zaman atılma durumuna geç
         }
     }                           
 }
