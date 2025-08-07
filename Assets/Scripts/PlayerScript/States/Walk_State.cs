@@ -2,47 +2,32 @@ using UnityEngine;
 
 public class Walk_State : IState
 {
-    public void Enter(PlayerProperties player)
+    public void Enter(PlayerProperties _playerData)
     {
         Debug.Log("WalkState'e girildi ");
     }
 
-    public void Exit(PlayerProperties player)
+    public void Exit(PlayerProperties _playerData)
     {
         Debug.Log("WalkState'den çikildi");
     }
 
-    public void Update(PlayerProperties player)
+    public void Update(PlayerProperties _playerData)
     {
-        Run(player);
-        if (!player._isWalking)   // Karakter yürümüyorsa ve yerdeyse...
+        _playerData._playerController.Run(_playerData);     // playerProperties üzerinden playerController'a eriştik ve orada ki run fonksiyonunu çalıştırdık.
+
+        if (!_playerData._isWalking)        // Karakter yürümüyorsa ve yerdeyse...
         {
-            player.ChangeState(player._idleState);   // O zaman Idle durumuna geç.
+            _playerData.ChangeState(_playerData._idleState);   // O zaman Idle durumuna geç.
         }
-        else if (player._isJumping) // Karakter zıplıyor ise...
+        else if (_playerData._isJumping)    // Karakter zıplıyor ise...
         {
-            player.ChangeState(player._jumpState);   // O zaman zıplama durumuna geç.
+            _playerData.ChangeState(_playerData._jumpState);   // O zaman zıplama durumuna geç.
+        }
+        else if (_playerData._isDashing)    // Karakter atılıyorsa
+        {
+            _playerData.ChangeState(_playerData._dashState);   // O zaman atılma durumuna geç. 
         }
     }
 
-    #region Functions
-    private void Run(PlayerProperties playerData)
-    {
-        Vector2 newVelocity = new Vector2(playerData._playerMoveDirection.x * playerData._speed, playerData._rb.linearVelocity.y);
-        playerData._rb.linearVelocity = newVelocity;       
-
-        if (playerData._playerMoveDirection.x != 0f)
-        {
-            playerData._animator.SetBool("isWalking", true);
-            playerData._isWalking = true;
-        }
-
-        else
-        {
-            playerData._animator.SetBool("isWalking", false);
-            playerData._isWalking = false;
-        }
-    } 
-    #endregion
-       
 }

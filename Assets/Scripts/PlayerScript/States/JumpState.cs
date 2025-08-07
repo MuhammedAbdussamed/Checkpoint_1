@@ -3,37 +3,39 @@ using UnityEngine;
 
 public class JumpState : IState
 {
-    public void Enter(PlayerProperties player)
+    public void Enter(PlayerProperties _playerData)
     {
-        player._animator.SetTrigger("Jump");
-        Jump(player);
+        _playerData._animator.SetTrigger("Jump");
+        Jump(_playerData);
     }
 
-    public void Exit(PlayerProperties player)
+    public void Exit(PlayerProperties _playerData)
     {
         Debug.Log("JumpState'den çikildi");
     }
 
-    public void Update(PlayerProperties player)
+    public void Update(PlayerProperties _playerData)
     {
-        if (player._isGrounded)
+        _playerData._playerController.Run(_playerData);            // Yürüme fonksiyonlarını burada da çalıştırmalıyız ki havada karaktere yön verebilelim.
+
+        if (_playerData._isGrounded)                               // Karakter yerde true dönerse...
         {
-            player._isJumping = false;
+            _playerData._isJumping = false;                             // Karakter zıplıyoru false çevir
         }
 
-        if (player._isGrounded && player._isWalking)     // Karakter yerde ve yürüyorsa...
+        if (_playerData._isGrounded && _playerData._isWalking)     // Karakter yerde ve yürüyorsa...
         {
-            player.ChangeState(player._walkState);          // Yürüme state'ine geç
+            _playerData.ChangeState(_playerData._walkState);            // Yürüme state'ine geç
         }
-        else if (player._isGrounded)                     // Karakter yerde ise...
+        else if (_playerData._isGrounded)                          // Karakter yerde ise...
         {
-            player.ChangeState(player._idleState);          // Idle state'ine geç
+            _playerData.ChangeState(_playerData._idleState);            // Idle state'ine geç
         }
     }
 
-    void Jump(PlayerProperties player)
+    void Jump(PlayerProperties _playerData)
     {
-        player._rb.linearVelocity = new Vector2(player._rb.linearVelocity.x, 0f);
-        player._rb.AddForce(Vector2.up * player._jumpPower, ForceMode2D.Impulse);
+        _playerData._rb.linearVelocity = new Vector2(_playerData._rb.linearVelocity.x, 0f);
+        _playerData._rb.AddForce(Vector2.up * _playerData._jumpPower, ForceMode2D.Impulse);
     }
 }
