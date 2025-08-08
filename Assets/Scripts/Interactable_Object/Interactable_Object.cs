@@ -1,8 +1,14 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Interactable_Object : MonoBehaviour
 {
-    private Transform _interactText;
+    [Header("References")]
+    [SerializeField] public Animator _animator;                            // AnimationManager'da ki animator.
+    [SerializeField] public InputActionReference _interactionInput;        // Etkileşim (E) tuşuna basılıp basılmadığını kontrol eden input action.
+
+    [Header("Variables")]
+    public Transform _interactText;                                        // Her Objede bulunan "Press E for interact" yazısı.
 
     public void Awake()
     {
@@ -19,6 +25,10 @@ public class Interactable_Object : MonoBehaviour
         if (col.CompareTag("Player"))
         {
             _interactText.gameObject.SetActive(true);
+            if (_interactionInput.action.triggered)
+            {
+                ObjectFunction();
+            }
         }
     }
 
@@ -29,4 +39,6 @@ public class Interactable_Object : MonoBehaviour
             _interactText.gameObject.SetActive(false);
         }
     }
+
+    protected virtual void ObjectFunction(){}  // Üst scriptler tarafından kontrol edilebilen bir fonksiyon. 
 }
