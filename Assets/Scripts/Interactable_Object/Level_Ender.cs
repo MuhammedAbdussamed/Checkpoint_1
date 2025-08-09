@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class Level_Ender : MonoBehaviour
 {
-    void OnTriggerEnter(Collider col)
+    void OnTriggerEnter2D(Collider2D col)
     {
         if (col.CompareTag("Player"))
         {

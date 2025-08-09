@@ -1,16 +1,16 @@
 using UnityEngine;
 
-public class Checkpoint : MonoBehaviour
+public class Checkpoint : Interactable_Object
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] AudioClip _fireIgnition;               // Ateş yakma sesi
+    private Transform _fire;                                // Objede ki ateş efekti.
+    public bool _isFiring;
 
-    // Update is called once per frame
-    void Update()
+    protected override void EnterCinematicFunction()
     {
-        
+        _fire = transform.Find("Fire");                     // Child object olan ateşi al
+        _fire.gameObject.SetActive(true);                   // Ve onu etkinleştir.
+        _environmentSound.PlayOneShot(_fireIgnition);       // Ateş yakma sesini bir kere çal.
+        _isFiring = true;
     }
 }

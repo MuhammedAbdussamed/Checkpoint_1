@@ -4,12 +4,12 @@ public class Idle_State : IState
 {
     public void Enter(PlayerProperties _playerData)
     {
-        Debug.Log("IdleState'e girildi ");
+        /* Idle durumuna girince yapılacaklar buraya */
     }
 
     public void Exit(PlayerProperties _playerData)
     {
-        Debug.Log("IdleState'den çikildi");
+        /* Idle durumundan çıkınca yapılacaklar buraya */
     }
 
     public void Update(PlayerProperties _playerData)

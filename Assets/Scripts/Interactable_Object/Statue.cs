@@ -1,16 +1,23 @@
 using UnityEngine;
 
-public class Statue : MonoBehaviour
+public class Statue : Interactable_Object
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private Transform _statueText;
+
+    void Awake()
     {
-        
+        _statueText = transform.Find("StatueText");         // Heykele özel metin. Sahnede child obje olarak geçer ve başlangıçta setactive'i false'dur.
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void EnterCinematicFunction()
     {
-        
+        _statueText.gameObject.SetActive(true);             // Özel metini etkinleştir.
+        ShowHideText(false);                                // Etkileşim metnini kapat.
     }
+
+    protected override void ExitCinematicFunction()
+    {
+        _statueText.gameObject.SetActive(false);            // Özel metini gizle.
+    }
+    
 }
