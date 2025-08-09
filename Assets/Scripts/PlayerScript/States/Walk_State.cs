@@ -4,12 +4,12 @@ public class Walk_State : IState
 {
     public void Enter(PlayerProperties _playerData)
     {
-        Debug.Log("WalkState'e girildi ");
+        /* Yürüme durumuna girince yapılacaklar buraya */
     }
 
     public void Exit(PlayerProperties _playerData)
     {
-        Debug.Log("WalkState'den çikildi");
+        /* Yürüme durumundan çıkınca yapılacaklar buraya */
     }
 
     public void Update(PlayerProperties _playerData)

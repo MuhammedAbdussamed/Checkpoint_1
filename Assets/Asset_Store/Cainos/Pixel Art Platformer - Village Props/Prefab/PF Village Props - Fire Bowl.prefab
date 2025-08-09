@@ -27,11 +27,11 @@ Transform:
   m_GameObject: {fileID: 1606144174828582253}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.008506775, y: 1.37675, z: 0.1875}
+  m_LocalPosition: {x: 5.946454, y: 1.6413871, z: 0.20269744}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7602366711053158309}
+  m_Father: {fileID: 2945937438219600199}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &1481650259193849851
 ParticleSystem:
@@ -4854,6 +4854,40 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &5216068106287389140
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2945937438219600199}
+  m_Layer: 0
+  m_Name: Fire
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2945937438219600199
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5216068106287389140}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5.954961, y: -0.2646371, z: -0.015197441}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1612249769535806381}
+  - {fileID: 8120331116313665713}
+  - {fileID: 5247993135991687077}
+  m_Father: {fileID: 7602366711053158309}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7530251067433830044
 GameObject:
   m_ObjectHideFlags: 0
@@ -4881,11 +4915,11 @@ Transform:
   m_GameObject: {fileID: 7530251067433830044}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.022743225, y: 1.12675, z: -0.03125}
+  m_LocalPosition: {x: 5.977704, y: 1.3913871, z: -0.016052559}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7602366711053158309}
+  m_Father: {fileID: 2945937438219600199}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &1159737711207072116
 ParticleSystem:
@@ -9710,6 +9744,7 @@ GameObject:
   - component: {fileID: 7602366711053158309}
   - component: {fileID: 7602366711053158306}
   - component: {fileID: 3014136591232491635}
+  - component: {fileID: 617589197043188253}
   m_Layer: 0
   m_Name: PF Village Props - Fire Bowl
   m_TagString: Untagged
@@ -9731,9 +9766,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 593476151427174978}
-  - {fileID: 1612249769535806381}
-  - {fileID: 8120331116313665713}
-  - {fileID: 5247993135991687077}
+  - {fileID: 2945937438219600199}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7602366711053158306
@@ -9837,6 +9870,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2, y: 1.1152254}
   m_EdgeRadius: 0
+--- !u!114 &617589197043188253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7602366711053158307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a6162a98b3f02a4da96feaf8ac7fa50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8513174654038805255
 GameObject:
   m_ObjectHideFlags: 0
@@ -10053,11 +10098,11 @@ Transform:
   m_GameObject: {fileID: 8676202434424728253}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.008506775, y: 0.81425, z: 0.1875}
+  m_LocalPosition: {x: 5.946454, y: 1.0788871, z: 0.20269744}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7602366711053158309}
+  m_Father: {fileID: 2945937438219600199}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &479846080899892509
 ParticleSystem:

@@ -33,6 +33,10 @@ public class PlayerProperties : MonoBehaviour
     public bool _dashPressed;       // Atılma tuşuna basıldı mı?
     public float _dashTime;         // Atılma süresi.
     public int _dashSpeed;          // Atılma hızı.
+
+    public bool _isCanCinematic;        // Etkileşim için hazır mı ? ( yakında obje var mı )
+    public bool _isInCinematic;         // Etkileşimin içerisinde mi ?
+    public bool _interactionChecker;    // Etkileşim için "E" tuşu inputını kontrol eder.
     
     [Header("States")]
     public IState _idleState;       // Idle durumu
@@ -41,9 +45,9 @@ public class PlayerProperties : MonoBehaviour
     public IState _dashState;       // Atılma durumu
 
     [Header("Variables")]
-    public Vector2 _playerMoveDirection;
+    public Vector2 _playerMoveDirection;    // Karakterin yürüme yönü
     public Vector2 _jumpDirection;
-
+    
     void Awake()
     {
         if (Instance == null)                   // Eğer Instance null ise

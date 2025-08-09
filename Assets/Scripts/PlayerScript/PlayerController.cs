@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     [Header("Variables")]
     private Vector2 _moveDirection; // Karakterimizin hareket edeceği yön.
     private Vector2 _jumpDirection;
+    private float _interactButtonValue;
+    private bool _isPressedInteractButton;
 
     private void Start()
     {
@@ -30,24 +32,35 @@ public class PlayerController : MonoBehaviour
 
         /* Inputs */
         _moveDirection = _playerMovement.FindActionMap("Movement").FindAction("Move").ReadValue<Vector2>();  // Input değerini _moveDirection'a ata.
+        _interactButtonValue = _playerMovement.FindActionMap("Interact").FindAction("Interaction").ReadValue<float>();
 
         /* PlayerData Assign */
         _playerData._playerMoveDirection = _moveDirection;      // Bütün datayı tutan PlayerProperties'e moveDirection'u geçiriyoruz.
         _playerData._isWalking = _moveDirection.x != 0;         // isWalking değişkenini hız 0 dan farklıysa true yap.
         _playerData._jumpDirection = _jumpDirection;            // PlayerProperties'de ki jumpDirection değerini PlayerControllerda ki jumpDirection değeriyle aynı yaptık.
         gameObject.layer = _playerData._playerLayer;            // Player Properties'de ki layer değerini objeye yansıt.
+        _playerData._interactionChecker = _isPressedInteractButton; // E tuşuna basılıp basılmadığını kontrol et ve Player Properties'de ki interactionChecker değişkenine ata.
     }
 
     void OnEnable()
     {
-        _playerMovement.FindActionMap("Jump").FindAction("Jumping").performed += ctx => _playerData._jumpPressed = true;    // Gelen Input ile _jumpPressed değişkenini true çevir.Bu bir event aboneliğidir.
-        _playerMovement.FindActionMap("Movement").FindAction("Dash").performed += ctx => _playerData._dashPressed = true;   // Gelen Input ile _dashPressed değişkenini true çevir.Bu bir event aboneliğidir.
+        _playerMovement.FindActionMap("Jump").FindAction("Jumping").performed += ctx => _playerData._jumpPressed = true;                    // Gelen Input ile _jumpPressed değişkenini true çevir.Bu bir event aboneliğidir.
+        _playerMovement.FindActionMap("Jump").FindAction("Jumping").canceled += ctx => _playerData._jumpPressed = false;                    // Tuşa basmayı bırakınca false döndür
+
+
+        _playerMovement.FindActionMap("Movement").FindAction("Dash").performed += ctx => _playerData._dashPressed = true;                   // Gelen Input ile _dashPressed değişkenini true çevir.Bu bir event aboneliğidir.
+        _playerMovement.FindActionMap("Movement").FindAction("Dash").canceled += ctx => _playerData._dashPressed = false;                   // Tuşa basmayı bırakınca false döndür
+
+        _playerMovement.FindActionMap("Interact").FindAction("Interaction").performed += ctx => _isPressedInteractButton = true;            // Gelen Input ile _interactionChecker değişkenini true çevir.Bu bir event aboneliğidir.
+        _playerMovement.FindActionMap("Interact").FindAction("Interaction").canceled += ctx => _isPressedInteractButton = false;            // Tuşa basmayı bırakınca false döndür
+ 
     }
 
     void OnDisable()
     {
-        _playerMovement.FindActionMap("Jump").FindAction("Jumping").performed -= ctx => _playerData._jumpPressed = true;    // Script devre dışı kalırsa aboneliği kaldır.
-        _playerMovement.FindActionMap("Movement").FindAction("Dash").performed -= ctx => _playerData._dashPressed = false;  // Script devre dışı kalırsa aboneliği kaldır  
+        _playerMovement.FindActionMap("Jump").FindAction("Jumping").performed -= ctx => _playerData._jumpPressed = false;                   // 
+        _playerMovement.FindActionMap("Movement").FindAction("Dash").performed -= ctx => _playerData._dashPressed = false;                  // Aboneliği kaldır. 
+        _playerMovement.FindActionMap("Interact").FindAction("Interaction").performed -= ctx => _isPressedInteractButton = false;           //  
     }
 
 

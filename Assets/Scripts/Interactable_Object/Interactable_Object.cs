@@ -4,41 +4,61 @@ using UnityEngine.InputSystem;
 public class Interactable_Object : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] public Animator _animator;                            // AnimationManager'da ki animator.
-    [SerializeField] public InputActionReference _interactionInput;        // Etkileşim (E) tuşuna basılıp basılmadığını kontrol eden input action.
+    [SerializeField] public AudioSource _environmentSound; // Ses kaynağı
+    private PlayerProperties _playerData;                   // Karakter scripti.
+    
 
     [Header("Variables")]
-    public Transform _interactText;                                        // Her Objede bulunan "Press E for interact" yazısı.
+    private Transform _interactText;                     // Her Objede bulunan "Press E for interact" yazısını atayacağımız değişken.
+    private bool _isPlayerInside;                        // Karakter objenin içerisinde mi?
 
-    public void Awake()
+    void Start()
     {
-        _interactText = transform.Find("Interactable_Objects_Text");
+        _interactText = transform.Find("Interactable_Objects_Text");    // Objenin altında bulunan "Press"E" for interact" texti.
+        _playerData = PlayerProperties.Instance;                        // PlayerProperties'i birden fazla kez kullanıcaz o yüzden değişkene atıyoruz.
     }
 
-    public void ShowHideText(bool entering)
+    private void Update()
     {
-        _interactText.gameObject.SetActive(entering);
+        if (_isPlayerInside && _playerData._interactionChecker)         // Karakter objenin içerisinde ve etkileşim tuşuna basılmış ise...
+        {
+            EnterCinematicFunction();                                   // Giriş fonksiyonunu çalıştır. (objeye özel olur)
+        }
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        TriggerFunction(col, true, false);
+    }
+
+    private void OnTriggerExit2D(Collider2D col)
+    {
+        TriggerFunction(col, false, true);
+    }
+
+    #region Functions
+
+    private void TriggerFunction(Collider2D col , bool inOrOut ,bool isExit)
     {
         if (col.CompareTag("Player"))
         {
-            _interactText.gameObject.SetActive(true);
-            if (_interactionInput.action.triggered)
+            _isPlayerInside = inOrOut;                                  // Karakter objenin yanında mı değil mi?
+            ShowHideText(inOrOut);                                      // Etkileşim metni gözükecek mi gizlenecek mi?
+
+            if (isExit)                                                 // isExit true verildiği takdirde çıkış fonksiyonu çalışacak.
             {
-                ObjectFunction();
+                ExitCinematicFunction();
             }
         }
     }
 
-    void OnTriggerExit2D(Collider2D col)
+    public void ShowHideText(bool entering)
     {
-        if (col.CompareTag("Player"))
-        {
-            _interactText.gameObject.SetActive(false);
-        }
+        _interactText.gameObject.SetActive(entering);                  // Etkileşim metnini gizle ya da göster.( Parametreye göre )
     }
 
-    protected virtual void ObjectFunction(){}  // Üst scriptler tarafından kontrol edilebilen bir fonksiyon. 
+    protected virtual void EnterCinematicFunction() { }  // Üst scriptler tarafından kontrol edilebilen bir fonksiyon. 
+    protected virtual void ExitCinematicFunction() { }  // Üst scriptler tarafından kontrol edilebilen bir fonksiyon.
+    
+    #endregion
 }
